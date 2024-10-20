@@ -31,5 +31,10 @@ namespace CA1
             get { return startTime; }
             set { startTime = value; }
         }
+
+        public void AddHorse(Horse horse)
+        {
+            horses.Add(horse);
+        }
     }
 }
