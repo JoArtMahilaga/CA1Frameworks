@@ -4,9 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CA1Frameworks
+namespace CA1
 {
-    internal class racecoursemanager
+    internal class RacecourseManager : User
     {
+        private List<RaceEvent> raceEvents;
+
+        public RacecourseManager(string userName, string role) : base(userName, role)
+        {
+            this.raceEvents = new List<RaceEvent>();
+        }
     }
 }
