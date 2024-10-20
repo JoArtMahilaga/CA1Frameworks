@@ -17,5 +17,20 @@ namespace CA1
             this.NumberOfRaces = numberOfRaces;
             Races = new List<Race>();
         }
+
+
+        
+        public void AddRace(Race race)
+        {
+            if (Races.Count < NumberOfRaces)
+            {
+                Races.Add(race);
+                Console.WriteLine($"Race '{race.RaceName}' added successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Cap has been reach you cant add anymore");
+            }
+        }
     }
 }

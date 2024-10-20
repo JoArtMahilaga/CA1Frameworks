@@ -75,19 +75,47 @@ namespace CA1
             }
         }
 
-        private void ViewOwnedHorses()
+  private void AddNewHorse()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter Horse Name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Enter Date of Birth (YYYY-MM-DD): ");
+            int dob = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter Horse ID: ");
+            int id = int.Parse(Console.ReadLine());
+
+            Horse newHorse = new Horse(name, dob, id);
+            AddHorse(newHorse);
         }
 
         private void EnterHorseInRacePrompt()
         {
-            throw new NotImplementedException();
+
+            Race race = GetRace();
+            EnterHorseInRace(race);
         }
 
-        private void AddNewHorse()
+        private void ViewOwnedHorses()
         {
-            throw new NotImplementedException();
+            if (ownedHorses.Count == 0)
+            {
+                Console.WriteLine("No horses owned.");
+                return;
+            }
+
+            Console.WriteLine("Owned Horses:");
+            foreach (var horse in ownedHorses)
+            {
+                Console.WriteLine($"- {horse.HorseName} (ID: {horse.HorseID})");
+            }
+        }
+
+        private Race GetRace()
+        {
+
+            return new Race("Race", DateTime.Now); 
         }
     }
-    }
+}

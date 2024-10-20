@@ -54,24 +54,149 @@ namespace CA1
             }
         }
 
-        private void ViewUpcomingEvents()
+   private void CreateRaceEvent()
         {
-            throw new NotImplementedException();
-        }
+            Console.Write("Enter Event Name: ");
+            string eventName = Console.ReadLine();
 
-        private void UploadHorsesToRace()
-        {
-            throw new NotImplementedException();
+            Console.Write("Enter Location: ");
+            string location = Console.ReadLine();
+
+            Console.Write("Enter Number of Races: ");
+            int numberOfRaces = int.Parse(Console.ReadLine());
+
+            RaceEvent raceEvent = new RaceEvent(eventName, location, numberOfRaces);
+            raceEvents.Add(raceEvent);
+            Console.WriteLine("Race event has been successfully made");
         }
 
         private void AddRaceToEvent()
         {
-            throw new NotImplementedException();
+            if (raceEvents.Count == 0)
+            {
+                Console.WriteLine("No events here yet you gotta make one");
+                return;
+            }
+
+            Console.WriteLine("Select an Event:");
+            for (int i = 0; i < raceEvents.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {raceEvents[i].EventName}");
+            }
+
+            int eventIndex = int.Parse(Console.ReadLine()) - 1;
+
+            if (eventIndex < 0 || eventIndex >= raceEvents.Count)
+            {
+                Console.WriteLine("Invalid selection.");
+                return;
+            }
+
+            RaceEvent selectedEvent = raceEvents[eventIndex];
+
+            Console.Write("Enter Race Name):");
+            string raceName = Console.ReadLine();
+            if (string.IsNullOrEmpty(raceName))
+            {
+                raceName = $"Race {selectedEvent.Races.Count + 1}";
+            }
+
+            Console.Write("Enter Start Time (YYYY-MM-DD / HH:MM): ");
+            DateTime startTime = DateTime.Parse(Console.ReadLine());
+
+            Race newRace = new Race(raceName, startTime);
+            selectedEvent.AddRace(newRace);
         }
 
-        private void CreateRaceEvent()
+        private void UploadHorsesToRace()
         {
-            throw new NotImplementedException();
+            if (raceEvents.Count == 0)
+            {
+                Console.WriteLine("No events here yet you gotta make one");
+                return;
+            }
+
+            Console.WriteLine("Select an Event:");
+            for (int i = 0; i < raceEvents.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {raceEvents[i].EventName}");
+            }
+
+            int eventIndex = int.Parse(Console.ReadLine()) - 1;
+
+            if (eventIndex < 0 || eventIndex >= raceEvents.Count)
+            {
+                Console.WriteLine("Invalid selection.");
+                return;
+            }
+
+            RaceEvent selectedEvent = raceEvents[eventIndex];
+
+            if (selectedEvent.Races.Count == 0)
+            {
+                Console.WriteLine("No races here yet you gotta make one");
+                return;
+            }
+
+            Console.WriteLine("Select a Race:");
+            for (int i = 0; i < selectedEvent.Races.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {selectedEvent.Races[i].RaceName}");
+            }
+
+            int raceIndex = int.Parse(Console.ReadLine()) - 1;
+
+            if (raceIndex < 0 || raceIndex >= selectedEvent.Races.Count)
+            {
+                Console.WriteLine("Error invalid selection.");
+                return;
+            }
+
+            Race selectedRace = selectedEvent.Races[raceIndex];
+
+
+            while (true)
+            {
+                Console.Write("Enter Horse Name or type when youre finished: ");
+                string horseName = Console.ReadLine();
+
+                if (horseName.ToLower() == "exit")
+                    break;
+
+                Console.Write("Enter Horse ID ");
+                int horseID = int.Parse(Console.ReadLine());
+
+                Console.Write("Enter DoB (YYYY-MM-DD): ");
+                int dob = int.Parse(Console.ReadLine());
+
+                Horse newHorse = new Horse(horseName, dob, horseID);
+                selectedRace.AddHorse(newHorse);
+                Console.WriteLine($"Horse '{horseName}' added to the race.");
+            }
+        }
+
+        private void ViewUpcomingEvents()
+        {
+            if (raceEvents.Count == 0)
+            {
+                Console.WriteLine("No upcoming events.");
+                return;
+            }
+
+            foreach (var raceEvent in raceEvents)
+            {
+                Console.WriteLine($"Event: {raceEvent.EventName}, Location: {raceEvent.Location}, Races: {raceEvent.NumberOfRaces}");
+
+                foreach (var race in raceEvent.Races)
+                {
+                    Console.WriteLine($"   - Race: {race.RaceName}, Start Time: {race.StartTime}");
+
+                    foreach (var horse in race.horses)
+                    {
+                        Console.WriteLine($"     - Horse: {horse.HorseName} (ID: {horse.HorseID})");
+                    }
+                }
+            }
         }
     }
-    }
+}
