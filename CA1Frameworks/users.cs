@@ -29,5 +29,7 @@ namespace CA1
             set { role = value; }
         }
 
+        public abstract void DisplayMenu();
+
     }
 }
