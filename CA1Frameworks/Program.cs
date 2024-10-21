@@ -14,25 +14,35 @@ namespace CA1
                 new RaceGoer("Goer1", "Race Goer")
             };
 
-            Console.WriteLine("Welcome to the Race Event Management System");
-            Console.WriteLine("Select your role:");
-
-            for (int i = 0; i < users.Count; i++)
+            
+            bool exit = false;
+            while (!exit)
             {
-                Console.WriteLine($"{i + 1}. {users[i].Role} - {users[i].UserName}");
-            }
+                Console.WriteLine("Welcome to the Race Event Management System");
+                Console.WriteLine("Select your role:");
 
-            Console.Write("Choose an option 1-3:");
-            int choice = int.Parse(Console.ReadLine());
+                for (int i = 0; i < users.Count; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {users[i].Role} - {users[i].UserName}");
+                }
+                Console.WriteLine("Choose an option 1-4:");
+                Console.WriteLine("Press 4 to exit");
+                int choice = int.Parse(Console.ReadLine());
 
-            if (choice >= 1 && choice <= users.Count)
-            {
-                users[choice - 1].DisplayMenu();
+                if (choice >= 1 && choice <= users.Count)
+                {
+                    users[choice - 1].DisplayMenu();
+                }
+                else if (choice == 4)
+                {
+                    exit = true;
+                }
+                else
+                {
+                    Console.WriteLine("Error please enter the right option");
+                }
             }
-            else
-            {
-                Console.WriteLine("Error you will now be exiting the application");
-            }
+            
         }
     }
 }
