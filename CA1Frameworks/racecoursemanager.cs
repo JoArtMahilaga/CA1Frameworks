@@ -8,11 +8,11 @@ namespace CA1
 {
     internal class RacecourseManager : User
     {
-        private List<RaceEvent> raceEvents;
+
 
         public RacecourseManager(string userName, string role) : base(userName, role)
         {
-            this.raceEvents = new List<RaceEvent>();
+          
         }
 
         public override void DisplayMenu()
@@ -23,9 +23,8 @@ namespace CA1
                 Console.WriteLine($"Welcome {UserName}");
                 Console.WriteLine("1 Create Race Event");
                 Console.WriteLine("2 Add Race to Event");
-                Console.WriteLine("3 Deploy Horses to Race");
-                Console.WriteLine("4 View Upcoming Events");
-                Console.WriteLine("5 Exit");
+                Console.WriteLine("3 View Upcoming Events");
+                Console.WriteLine("4 Exit");
                 Console.Write("Please choose an option: ");
 
                 var choice = Console.ReadLine();
@@ -39,12 +38,9 @@ namespace CA1
                         AddRaceToEvent();
                         break;
                     case "3":
-                        UploadHorsesToRace();
-                        break;
-                    case "4":
                         ViewUpcomingEvents();
                         break;
-                    case "5":
+                    case "4":
                         exit = true;
                         break;
                     default:
@@ -68,33 +64,33 @@ namespace CA1
             int numberOfRaces = int.Parse(Console.ReadLine());
 
             RaceEvent raceEvent = new RaceEvent(eventName, location, numberOfRaces);
-            raceEvents.Add(raceEvent);
+            addRaceEvent(raceEvent);
             Console.WriteLine("Race event has been successfully made");
         }
 
         private void AddRaceToEvent()
         {
-            if (raceEvents.Count == 0)
+            if (RaceEvents.Count == 0)
             {
                 Console.WriteLine("No events here yet you gotta make one");
                 return;
             }
 
             Console.WriteLine("Select an Event:");
-            for (int i = 0; i < raceEvents.Count; i++)
+            for (int i = 0; i < RaceEvents.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {raceEvents[i].EventName}");
+                Console.WriteLine($"{i + 1}. {RaceEvents[i].EventName}");
             }
 
             int eventIndex = int.Parse(Console.ReadLine()) - 1;
 
-            if (eventIndex < 0 || eventIndex >= raceEvents.Count)
+            if (eventIndex < 0 || eventIndex >= RaceEvents.Count)
             {
                 Console.WriteLine("Invalid selection.");
                 return;
             }
 
-            RaceEvent selectedEvent = raceEvents[eventIndex];
+            RaceEvent selectedEvent = RaceEvents[eventIndex];
 
             Console.Write("Enter Race Name):");
             string raceName = Console.ReadLine();
@@ -110,82 +106,17 @@ namespace CA1
             selectedEvent.AddRace(newRace);
         }
 
-        private void UploadHorsesToRace()
-        {
-            if (raceEvents.Count == 0)
-            {
-                Console.WriteLine("No events here yet you gotta make one");
-                return;
-            }
-
-            Console.WriteLine("Select an Event:");
-            for (int i = 0; i < raceEvents.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {raceEvents[i].EventName}");
-            }
-
-            int eventIndex = int.Parse(Console.ReadLine()) - 1;
-
-            if (eventIndex < 0 || eventIndex >= raceEvents.Count)
-            {
-                Console.WriteLine("Invalid selection.");
-                return;
-            }
-
-            RaceEvent selectedEvent = raceEvents[eventIndex];
-
-            if (selectedEvent.Races.Count == 0)
-            {
-                Console.WriteLine("No races here yet you gotta make one");
-                return;
-            }
-
-            Console.WriteLine("Select a Race:");
-            for (int i = 0; i < selectedEvent.Races.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {selectedEvent.Races[i].RaceName}");
-            }
-
-            int raceIndex = int.Parse(Console.ReadLine()) - 1;
-
-            if (raceIndex < 0 || raceIndex >= selectedEvent.Races.Count)
-            {
-                Console.WriteLine("Error invalid selection.");
-                return;
-            }
-
-            Race selectedRace = selectedEvent.Races[raceIndex];
-
-
-            while (true)
-            {
-                Console.Write("Enter Horse Name or type when youre finished: ");
-                string horseName = Console.ReadLine();
-
-                if (horseName.ToLower() == "exit")
-                    break;
-
-                Console.Write("Enter Horse ID ");
-                int horseID = int.Parse(Console.ReadLine());
-
-                Console.Write("Enter DoB (YYYY-MM-DD): ");
-                String dob =Console.ReadLine();
-
-                Horse newHorse = new Horse(horseName, dob, horseID);
-                selectedRace.AddHorse(newHorse);
-                Console.WriteLine($"Horse '{horseName}' added to the race.");
-            }
-        }
+       
 
         private void ViewUpcomingEvents()
         {
-            if (raceEvents.Count == 0)
+            if (RaceEvents.Count == 0)
             {
                 Console.WriteLine("No upcoming events.");
                 return;
             }
 
-            foreach (var raceEvent in raceEvents)
+            foreach (var raceEvent in RaceEvents)
             {
                 Console.WriteLine($"Event: {raceEvent.EventName}, Location: {raceEvent.Location}, Races: {raceEvent.NumberOfRaces}");
 

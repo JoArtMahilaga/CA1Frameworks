@@ -38,11 +38,42 @@ namespace CA1
                 Console.WriteLine();
             }
         }
-             private void ViewUpcomingEvents()
-        {
-     
-            Console.WriteLine("Enter logic to view upcoming events.");
-        }
-        }
-    }
 
+
+
+        private void ViewUpcomingEvents()
+        {
+
+            List<RaceEvent> raceEvents = RaceEvents;
+
+            if (raceEvents.Count == 0)
+            {
+                Console.WriteLine("No upcoming events.");
+                return;
+            }
+
+            foreach (var raceEvent in raceEvents)
+            {
+                Console.WriteLine($"Event: {raceEvent.EventName}, Location: {raceEvent.Location}, Number of Races: {raceEvent.NumberOfRaces}");
+
+                foreach (var race in raceEvent.Races)
+                {
+                    Console.WriteLine($"   - Race: {race.RaceName}, Start Time: {race.StartTime}");
+
+                    if (race.horses.Count == 0)
+                    {
+                        Console.WriteLine("     - No horses entered yet.");
+                    }
+                    else
+                    {
+                        foreach (var horse in race.horses)
+                        {
+                            Console.WriteLine($"     - Horse: {horse.HorseName} (ID: {horse.HorseID})");
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+}

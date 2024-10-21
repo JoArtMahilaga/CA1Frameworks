@@ -8,6 +8,8 @@ namespace CA1
 {
     internal class RaceEvent : Event
     {
+        internal object StartTime;
+
         public int NumberOfRaces { get; set; }
         public List<Race> Races { get; set; }
 
