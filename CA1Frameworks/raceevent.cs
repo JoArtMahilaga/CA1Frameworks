@@ -4,9 +4,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CA1Frameworks
+namespace CA1
 {
-    internal class raceEvent
+    internal class RaceEvent : Event
     {
+        internal object StartTime;
+
+        public int NumberOfRaces { get; set; }
+        public List<Race> Races { get; set; }
+
+        public RaceEvent(string eventName, string location, int numberOfRaces) : base(eventName, location)
+        {
+            this.NumberOfRaces = numberOfRaces;
+            Races = new List<Race>();
+        }
+
+
+        
+        public void AddRace(Race race)
+        {
+            if (Races.Count < NumberOfRaces)
+            {
+                Races.Add(race);
+                Console.WriteLine($"Race '{race.RaceName}' added successfully.");
+            }
+            else
+            {
+                Console.WriteLine("Cap has been reach you cant add anymore");
+            }
+        }
     }
 }
