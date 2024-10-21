@@ -17,7 +17,8 @@ namespace CA1
 
         public override void DisplayMenu()
         {
-            while (true)
+            bool exit = false;
+            while (!exit)
             {
                 Console.WriteLine($"Welcome {UserName}");
                 Console.WriteLine("1 Create Race Event");
@@ -44,7 +45,8 @@ namespace CA1
                         ViewUpcomingEvents();
                         break;
                     case "5":
-                        return;
+                        exit = true;
+                        break;
                     default:
                         Console.WriteLine("Mistakes were made please try again");
                         break;
@@ -167,7 +169,7 @@ namespace CA1
                 int horseID = int.Parse(Console.ReadLine());
 
                 Console.Write("Enter DoB (YYYY-MM-DD): ");
-                int dob = int.Parse(Console.ReadLine());
+                String dob =Console.ReadLine();
 
                 Horse newHorse = new Horse(horseName, dob, horseID);
                 selectedRace.AddHorse(newHorse);

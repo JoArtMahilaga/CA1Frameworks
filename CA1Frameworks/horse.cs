@@ -11,10 +11,10 @@ namespace CA1
 
         private string horseName;
         private int horseID;
-        private int dob;
+        private String dob;
 
 
-        public Horse(string name, int doB, int iD)
+        public Horse(string name, String doB, int iD)
         {
             this.horseName = "";
             this.DoB = doB;
@@ -33,7 +33,7 @@ namespace CA1
             set { horseID = value; }
         }
 
-        public int DoB
+        public String DoB
         {
             get { return dob; }
             set { dob = value; }

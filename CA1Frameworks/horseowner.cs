@@ -81,7 +81,7 @@ namespace CA1
             string name = Console.ReadLine();
 
             Console.Write("Enter Date of Birth (YYYY-MM-DD): ");
-            int dob = int.Parse(Console.ReadLine());
+            String dob = Console.ReadLine();
 
             Console.Write("Enter Horse ID: ");
             int id = int.Parse(Console.ReadLine());
